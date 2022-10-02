@@ -3,28 +3,21 @@ import YourBotArmy from "./YourBotArmy";
 import BotCollection from "./BotCollection";
 
 function BotsPage() {
-  const baseUrl = "http://localhost:8002/bots";
-
-  //get bots
   const [bots, setBots] = useState([]);
   const [botArmy, setBotArmy] = useState([]);
 
-  useEffect(function populateBots() {
-    fetch(baseUrl)
+  useEffect(function showBots() {
+    fetch("http://localhost:8002/bots")
       .then((response) => response.json())
-      .then((result) => {
-        console.log("Bots:" + result);
-        setBots(result);
+      .then((data) => {
+        console.log("Bots:" + data);
+        setBots(data);
       });
   }, []);
 
   return (
     <div>
-      <YourBotArmy
-        botArmy={botArmy}
-        setBotArmy={setBotArmy}
-        setBots={setBots}
-      />
+      <YourBotArmy botArmy={botArmy} setBotArmy={setBotArmy} setBots={setBots} />
       <BotCollection bots={bots} setBotArmy={setBotArmy} setBots={setBots} />
     </div>
   );

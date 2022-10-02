@@ -6,13 +6,13 @@ function BotCollection({ bots, setBotArmy, setBots }) {
   return (
     <div className="ui four column grid">
       <div className="row">
-        {bots?.map((bot, i) => (
+        {bots?.map((bot, id) => (
           <BotCard
             bot={bot}
-            key={i}
+            key={id}
             setBotArmy={setBotArmy}
             setBots={setBots}
-            position="list"
+            // position="list"
           />
         ))}
         Collection of all bots

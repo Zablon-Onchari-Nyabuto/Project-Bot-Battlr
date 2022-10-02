@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import BotCard from "./BotCard";
 
-function BotCollection() {
+function BotCollection({ botListed, addBot, deleteBot }) {
   // Your code here
+  const botList = useState({
+    id: "",
+    name: "",
+    health: "",
+    damage: "",
+    armor: "",
+    bot_class: "",
+    catchphrase: "",
+    avatar_url: "",
+    created_at: "",
+    updated_at: ""
+  })
   return (
     <div className="ui four column grid">
       <div className="row">
-        {/*...and here..*/}
-        Collection of all bots
+        {botList.map((bot) => (
+          <BotCard key={bot.id} bot={bot} handleBot={addBot} handleDeleteBot={deleteBot} />
+        ))}
       </div>
     </div>
   );

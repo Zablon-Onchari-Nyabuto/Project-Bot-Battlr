@@ -8,53 +8,50 @@ const botTypeClasses = {
   Witch: "icon magic",
   Captain: "icon star",
 };
-export default function BotCard({ bot, setBotArmy, setBots, position }) {
+
+function BotCard({ bot, setBotArmy, setBots, position }) {
   function handleBotClick(e) {
-    console.log("Bot Clicked: ID: " + bot.id);
+    console.log(bot.id);
 
-    e.stopPropagation();
+    e.preventDefault();
 
-    setBotArmy((currentArmy) => {
-      currentArmy = [...currentArmy];
+    setBotArmy((botFleet) => {
+      botFleet = [...botFleet];
 
-      if (currentArmy.includes(bot)) {
-        if (position === "army") {
-          // remove bot from army
-          currentArmy.splice(currentArmy.indexOf(bot), 1);
+      if (botFleet.includes(bot)) {
+        if (position === "botPagePosition") {
+          botFleet.splice(botFleet.indexOf(bot), 1);
         }
       } else {
-        // add bot to army
-        currentArmy.push(bot);
+        botFleet.push(bot);
       }
 
       console.log(
-        "Army:" + typeof currentArmy + " Size: " + currentArmy.length
+        "Army:" + typeof botFleet + " Size: " + botFleet.length
       );
-      return currentArmy;
+      return botFleet;
     });
   }
 
   function releaseBot(e) {
-    e.stopPropagation();
+    e.preventDefault();
 
-    fetch(`http://localhost:8002/bots/${bot.id}`, { method: "DELETE" }).then(
-      (response) => {
-        // remove from army
-        setBotArmy((currentArmy) => {
-          currentArmy = [...currentArmy];
+    fetch(`http://localhost:8002/bots/${bot.id}`, 
+    { method: "DELETE" })
+    .then((response) => {
+        setBotArmy((botFleet) => {
+          botFleet = [...botFleet];
 
-          if (currentArmy.includes(bot)) {
-            // remove bot from army
-            currentArmy.splice(currentArmy.indexOf(bot), 1);
+          if (botFleet.includes(bot)) {
+            botFleet.splice(botFleet.indexOf(bot), 1);
           }
-          return currentArmy;
+          return botFleet;
         });
 
-        // remove from list
-        setBots((currentBots) => {
-          currentBots = [...currentBots];
-          currentBots.splice(currentBots.indexOf(bot), 1);
-          return currentBots;
+        setBots((botShown) => {
+          botShown = [...botShown];
+          botShown.splice(botShown.indexOf(bot), 1);
+          return botShown;
         });
       }
     );
@@ -104,3 +101,5 @@ export default function BotCard({ bot, setBotArmy, setBots, position }) {
     </div>
   );
 }
+
+export default BotCard;

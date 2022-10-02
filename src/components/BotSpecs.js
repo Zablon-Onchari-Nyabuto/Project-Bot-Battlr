@@ -1,6 +1,4 @@
 import React from "react";
-import BotCollection from "./BotCollection";
-import YourBotArmy from "./YourBotArmy";
 
 const botTypeClasses = {
   Assault: "icon military",
@@ -54,16 +52,18 @@ function BotSpecs({ bot }) {
             </div>
             <button
               className="ui button fluid"
-              onClick={(e) =>
-                YourBotArmy(e.target.id)
+              onClick={() =>
+                console.log("connect this to a function that shows all bots")
               }
             >
               Go Back
             </button>
             <button
               className="ui button fluid"
-              onClick={(e) =>
-                BotCollection(e.target.value)
+              onClick={() =>
+                console.log(
+                  "connect this to a function that adds this bot to your bot army list"
+                )
               }
             >
               Enlist
